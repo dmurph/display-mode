@@ -1,4 +1,4 @@
-# Display Mode Override Proposal Internal Version
+# Display Mode Override Proposal
 
 
 # Authors:
