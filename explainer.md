@@ -9,17 +9,14 @@ dmurph@chromium.org
 # Participate:
 
 Currently discussion is in this github issue: 
-
 https://github.com/w3c/manifest/issues/856
 
-NOTE - I HAVE NOT SUBMITTED THIS PROPOSAL TO THAT DISCUSSION YET - DRAFT
+Future discussion can probably happen in the issue tracker in this explainer's repository.
 
 
 # Introduction
 
 The current `display` mode has the following issues:
-
-
 
 *   The fallback chain is inflexible for developers. A developer cannot specify they want `minimal-ui` and then fallback to `standalone` if that is not supported. Instead they must fail down to `browser`, which loses them a PWA window.
 *   Developers have no way of handling cross-user-agent differences, like if the user-agent includes or excludes a back button in the window for 'standalone' mode
@@ -63,7 +60,7 @@ Add a new field, sequence of strings `display-override`, which the user agent co
 Example:
 
 
-```
+```json
 {
   "display": "standalone",
   "display-override": ["customized", "minimal-ui"],
@@ -82,8 +79,6 @@ In this example, the display mode fallback chain would be spec'd as:
 1.  `browser`
 
 Requirements:
-
-
 
 *   A user agent will not consider `display-override` unless `display` is also present.
 *   The new display modes cannot be used with `"display"`.
@@ -118,8 +113,6 @@ A user-agent that doesn't support `display-override` would fall back to the `dis
 
 If tabbed & title bar customization are approved, then this could be the list of modes:
 
-
-
 1.  `minimal`
 1.  `standalone`
 1.  `customized`
@@ -130,8 +123,6 @@ If tabbed & title bar customization are approved, then this could be the list of
 1.  `minimal_tabbed` [potentially remove this]
 
 Not supported, as probably redundant
-
-
 
 *   `customized_minimal`
 *   `customized_tabbed_minimal`
@@ -148,8 +139,6 @@ Note: this goes away with [Custom display mode names with display-modifiers-styl
 ## Con - Element Coupling may force features on developers
 
 Since the list isn't meant to be a full cross product of all display mode options, the following two scenarios may occur:
-
-
 
 *   Developers cannot find a configuration that has all of the options they desire, or
 *   Developers are given display elements they don't want or need.
@@ -177,7 +166,7 @@ I'm expecting that this change will be a separate proposal / pull request. I wan
 The developer prefers `minimal-ui` but can settle for `standalone`.
 
 
-```
+```json
 {
   "display": "standalone",
   "display-override": ["minimal-ui"],
@@ -191,7 +180,7 @@ The developer prefers `minimal-ui` but can settle for `standalone`.
 A webapp that only wants a dedicated window if there can be tabs.
 
 
-```
+```json
 {
   "display": "browser",
   "display-override": [ "customized_tabbed", "tabbed"],
@@ -205,7 +194,7 @@ A webapp that only wants a dedicated window if there can be tabs.
 A webapp wants to display their own browser controls if they are in a window, either through the 'customized' API or in their own in-app header.
 
 
-```
+```json
 {
   "display": "browser",
   "display-override": [ "customized", "standalone"],
@@ -219,7 +208,7 @@ A webapp wants to display their own browser controls if they are in a window, ei
 A webapp doesn't want `minimal-ui`.
 
 
-```
+```json
 {
   "display": "browser",
   "display-override": ["standalone"],
@@ -242,7 +231,7 @@ At its core, `display-override` provides a developer-controlled display mode fal
 One example is to allow developers to create their own display modes like so:
 
 
-```
+```json
 {
   "display": "standalone",
   "display-override": ["back-tabbed-color", "tabbed-color", "tabbed"],
@@ -274,8 +263,6 @@ One example is to allow developers to create their own display modes like so:
 
 
 In this example, the `custom-display-modes` specify custom display modes, similar to `display-modifiers`, except there are two parts:
-
-
 
 *   `required` specifies the display modifiers that **need** to be supported by the browser for this display mode to become active. The configuration is used IFF all requirements are supported.
 *   `optional` specifies the display modifiers that **may** be supported by the browser (and will be applied if they are supported).
@@ -314,11 +301,9 @@ This doesn't work because it breaks backwards compatibility. If a UA doesn't sup
 
 (copying from mgiuca@'s comment on [w3c/manifest#856](https://github.com/w3c/manifest/issues/856)):
 
+> This was proposed by [@amandabaker](https://github.com/amandabaker) on [MicrosoftEdge/MSEdgeExplainers#206](https://github.com/MicrosoftEdge/MSEdgeExplainers/issues/206), and riffed on [in comments](https://github.com/MicrosoftEdge/MSEdgeExplainers/issues/206#issuecomment-592138391) by [@aarongustafson](https://github.com/aarongustafson). Keep the existing `display-mode`, but add a new list or dictionary member, `display-modifiers,` which lets developers add or remove things piecemeal.
 
-    This was proposed by [@amandabaker](https://github.com/amandabaker) on [MicrosoftEdge/MSEdgeExplainers#206](https://github.com/MicrosoftEdge/MSEdgeExplainers/issues/206), and riffed on [in comments](https://github.com/MicrosoftEdge/MSEdgeExplainers/issues/206#issuecomment-592138391) by [@aarongustafson](https://github.com/aarongustafson). Keep the existing `display-mode`, but add a new list or dictionary member, `display-modifiers,` which lets developers add or remove things piecemeal.
-
-
-    For example, Aaron's proposal presents the new title bar customization feature as simply a "removal" of the `"titlebar"` feature:
+> For example, Aaron's proposal presents the new title bar customization feature as simply a "removal" of the `"titlebar"` feature:
 
 
 ```
@@ -330,9 +315,7 @@ This doesn't work because it breaks backwards compatibility. If a UA doesn't sup
 }
 ```
 
-
-
-    But this also allows you to explicitly add or remove individual elements like back button, refresh button, etc. I think these would still have to be hints to the UA (we can't mandate that the UA show a refresh button, for instance), but they could be SHOULD requirements.
+> But this also allows you to explicitly add or remove individual elements like back button, refresh button, etc. I think these would still have to be hints to the UA (we can't mandate that the UA show a refresh button, for instance), but they could be SHOULD requirements.
 
 
 ### Easy customization for Developers
@@ -354,7 +337,6 @@ It is difficult for developers to detect what features the browser supports here
 
 This style of API would force user agents to support an exponential amount of UI configuration, as every new modifier increases the complexity of combinations by another magnitude.
 
- \
 However, this might be necessary for supporting all use cases.
 
 
@@ -362,18 +344,15 @@ However, this might be necessary for supporting all use cases.
 
 (copying from mgiuca@'s comment on [w3c/manifest#856](https://github.com/w3c/manifest/issues/856)):
 
+> This is the most straightforward. We keep the existing display modes, but don't add any new ones. All new features are "add-ons" which have their own member. For example:
 
-    This is the most straightforward. We keep the existing display modes, but don't add any new ones. All new features are "add-ons" which have their own member. For example:
-
-
-```
+```json
 {
   "display": "standalone",
   "tabbed_mode": true,
   "caption_controls_overlay": true
 }
 ```
-
 
 
 ### Easy customization for Developers
