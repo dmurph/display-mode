@@ -113,7 +113,7 @@ A user-agent that doesn't support `display-override` would fall back to the `dis
 
 If tabbed & title bar customization are approved, then this could be the list of modes:
 
-1.  `minimal`
+1.  `minimal-ui`
 1.  `standalone`
 1.  `customized`
 1.  `tabbed`
