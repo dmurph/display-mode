@@ -9,7 +9,7 @@ dmurph@chromium.org
 # Participate:
 
 Currently discussion is in this github issue: 
-https://github.com/w3c/manifest/issues/856
+[w3c/manifest#856](https://github.com/w3c/manifest/issues/856).
 
 Future discussion can probably happen in the issue tracker in this explainer's repository.
 
@@ -39,7 +39,7 @@ However, if that is NOT the case and more intense customization is necessary, th
 
 **Simplicity** - The API should be relatively simple to understand and use.
 
-**Predictability - **The developer should be able to easily predict what the display mode configuration is for their website.
+**Predictability** - The developer should be able to easily predict what the display mode configuration is for their website.
 
 
 # Non Goals
@@ -378,11 +378,11 @@ This style of API would force user agents to support an exponential amount of UI
 # References & acknowledgements
 
 References:
-* w3c/manifest#856 - Github issue discussion on this topic
-* w3c/manifest - Manifest spec
-* MicrosoftEdge/MSEdgeExplainers#206 zdisplay-modifiers proposal by @amandabaker
+* [w3c/manifest#856](https://github.com/w3c/manifest/issues/856) - Github issue discussion on this topic
+* [w3c/manifest](https://github.com/w3c/manifest) - Manifest spec
+* [MicrosoftEdge/MSEdgeExplainers#206](https://github.com/MicrosoftEdge/MSEdgeExplainers/issues/206) zdisplay-modifiers proposal by @amandabaker
   * Riffed on [in comments](https://github.com/MicrosoftEdge/MSEdgeExplainers/issues/206#issuecomment-592138391) by @aarongustafson
-* Media queries proposed by mgiuca@chromium.org in w3c/manifest#693 and explainer written by @fallaciousreasoning [here](https://github.com/fallaciousreasoning/backbutton-mediaquery).
+* Media queries proposed by mgiuca@chromium.org in [w3c/manifest#693](https://github.com/w3c/manifest/issues/693) and explainer written by @fallaciousreasoning [here](https://github.com/fallaciousreasoning/backbutton-mediaquery).
 
 Thanks to the following people who helped me brainstorm & create this proposal:
 *   Alan Cutter <alancutter@chromium.org>
