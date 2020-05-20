@@ -48,7 +48,7 @@ However, if that is NOT the case and more intense customization is necessary, th
 
 It seems too early to know if this is necessary, and at the very least this proposal shouldn't block this happening in the future.
 
-**Remove or redesign the core fallback behavior of <code>display</code> field or modes</strong>
+**Remove or redesign the core fallback behavior of `display` field or modes**
 
 This API seems like it isn't suiting our needs, and is hard to change while continuing to be backwards compatible. Better to create a new surface.
 
@@ -119,13 +119,13 @@ If tabbed & title bar customization are approved, then this could be the list of
 1.  `tabbed`
 1.  `fullscreen`
 1.  `browser`
-1.  `customized_tabbed`
-1.  `minimal_tabbed` [potentially remove this]
+1.  `customized-tabbed`
+1.  `minimal-tabbed` [potentially remove this]
 
 Not supported, as probably redundant
 
-*   `customized_minimal`
-*   `customized_tabbed_minimal`
+*   `customized-minimal`
+*   `customized-tabbed-minimal`
 
 Even though this seems long, this is probably how user agents would have to evaluate the combinations from a UX design perspective. These all need to be enumerated to be properly tested as well. So having them listed separately (and supported separately) seems acceptable.
 
@@ -143,7 +143,7 @@ Since the list isn't meant to be a full cross product of all display mode option
 *   Developers cannot find a configuration that has all of the options they desire, or
 *   Developers are given display elements they don't want or need.
 
-Example: button X is a new display option that is supported only in tabbed mode (so there is a new string, "tabbed\_button\_X". Developers who want button X will be forced to also be in tabbed mode.
+Example: button X is a new display option that is supported only in tabbed mode (so there is a new string, `tabbed-button-X`. Developers who want button X will be forced to also be in tabbed mode.
 
 This is hopefully avoided by carefully considering the use cases of each display element, but it might happen.
 
@@ -183,7 +183,7 @@ A webapp that only wants a dedicated window if there can be tabs.
 ```json
 {
   "display": "browser",
-  "display-override": [ "customized_tabbed", "tabbed"],
+  "display-override": [ "customized-tabbed", "tabbed"],
 }
 ```
 
