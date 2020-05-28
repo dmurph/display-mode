@@ -20,11 +20,11 @@ The current `display` mode has the following issues:
 
 *   The fallback chain is inflexible for developers. A developer cannot specify they want `minimal-ui` and then fallback to `standalone` if that is not supported. Instead they must fail down to `browser`, which loses them a PWA window.
 *   Developers have no way of handling cross-user-agent differences, like if the user-agent includes or excludes a back button in the window for 'standalone' mode
-*   New display modes don't have a clear 'place' in the current static fallback chain. Example: [Tabbed Application Mode](https://github.com/w3c/manifest/issues/737) & [Title Bar Customization](https://github.com/MicrosoftEdge/MSEdgeExplainers/issues/206). Especially because this could force developers into a display mode they don't want to support at all.
+*   New display modes don't have a clear 'place' in the current static fallback chain. Example: [Tabbed Application Mode](https://github.com/w3c/manifest/issues/737) & [Window Control Overlay](https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/master/TitleBarCustomization/explainer.md) ([issue](https://github.com/MicrosoftEdge/MSEdgeExplainers/issues/206)). Especially because this could force developers into a display mode they don't want to support at all.
 
 This proposal is a result of the post [w3c/manifest#856](https://github.com/w3c/manifest/issues/856) by Matt Giuca on github outlining these problems in more detail.
 
-As more display mode options arise (tabbed, customized, maybe back button, etc), I am predicting that developers will end up needing only a fixed number of display mode combinations. This proposal should be all that is necessary if that is the case.
+As more display mode options arise (tabs, window-control-overlay, maybe back button, etc), I am predicting that developers will end up needing only a fixed number of display mode combinations. This proposal should be all that is necessary if that is the case.
 
 However, if that is NOT the case and more intense customization is necessary, this proposal should work well with adding a `display modifiers`-style future API. See [Custom display mode names with display-modifiers-style specification](#custom-display-mode-names-with-display-modifiers-style-specification) for an idea here.
 
@@ -63,7 +63,7 @@ Example:
 ```json
 {
   "display": "standalone",
-  "display-override": ["customized", "minimal-ui"],
+  "display-override": ["window-control-overlay", "minimal-ui"],
 }
 ```
 
@@ -72,7 +72,7 @@ In this example, the display mode fallback chain would be spec'd as:
 
 
 
-1.  `customized`
+1.  `window-control-overlay`
 1.  `minimal-ui`
 1.  `standalone` (`display-override` is exhausted, [evaluating](https://w3c.github.io/manifest/#display-modes) `display` now)
 1.  `minimal-ui`
@@ -115,17 +115,17 @@ If tabbed & title bar customization are approved, then this could be the list of
 
 1.  `minimal-ui`
 1.  `standalone`
-1.  `customized`
+1.  `window-control-overlay`
 1.  `tabbed`
 1.  `fullscreen`
 1.  `browser`
-1.  `customized-tabbed`
+1.  `window-control-overlay-tabbed`
 1.  `minimal-tabbed` [potentially remove this]
 
 Not supported, as probably redundant
 
-*   `customized-minimal`
-*   `customized-tabbed-minimal`
+*   `window-control-overlay-minimal`
+*   `window-control-overlay-tabbed-minimal`
 
 Even though this seems long, this is probably how user agents would have to evaluate the combinations from a UX design perspective. These all need to be enumerated to be properly tested as well. So having them listed separately (and supported separately) seems acceptable.
 
@@ -183,7 +183,7 @@ A webapp that only wants a dedicated window if there can be tabs.
 ```json
 {
   "display": "browser",
-  "display-override": [ "customized-tabbed", "tabbed"],
+  "display-override": [ "window-control-overlay-tabbed", "tabbed"],
 }
 ```
 
@@ -197,7 +197,7 @@ A webapp wants to display their own browser controls if they are in a window, ei
 ```json
 {
   "display": "browser",
-  "display-override": [ "customized", "standalone"],
+  "display-override": [ "window-control-overlay", "standalone"],
 }
 ```
 
