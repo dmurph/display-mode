@@ -240,7 +240,7 @@ One example is to allow developers to create their own display modes like so:
       "required": {
         "back-button": true,
         "tabbed": true,
-        "tabbed-color": 0x23F0A3,
+        "tabbed-color": "0x23F0A3",
       },
       "optional": {
         "reload-button": false,
@@ -250,7 +250,7 @@ One example is to allow developers to create their own display modes like so:
     "tabbed-color": {
       "required": {
         "tabbed": true,
-        "tabbed-color": 0x23F0A3,
+        "tabbed-color": "0x23F0A3",
       },
       "optional": {
         "reload-button": false,
