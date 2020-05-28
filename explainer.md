@@ -11,12 +11,15 @@ dmurph@chromium.org
 Currently discussion is in this github issue: 
 [w3c/manifest#856](https://github.com/w3c/manifest/issues/856).
 
-Future discussion can probably happen in the issue tracker in this explainer's repository.
-
+Please use this [issue tracker](https://github.com/dmurph/display-mode/issues) to record any issues or feedback. 
 
 # Introduction
 
-The current `display` mode has the following issues:
+New display modes are being proposed, and the current way of specifying a display mode in the manifest has a static fallback chain, which can:
+ * Prevent developer from using display modes that may make them not PWAs on unsupporting UAs - A developer cannot, for example, request `minimal-ui` without being forced back into the `browser` display mode (essentially making it a non-PWA) on unsupporting UAs.
+ * Forces display modes onto developers that they do not want. - A developer MUST handle all display modes the follow the requested mode. If they want `fullscreen`, and `tabbed` is introduced after `fullscreen` in the display mode list, they must support a `tabbed` display mode, even if they don't want it
+
+To elaborate a bit more, the current `display` mode has the following issues:
 
 *   The fallback chain is inflexible for developers. A developer cannot specify they want `minimal-ui` and then fallback to `standalone` if that is not supported. Instead they must fail down to `browser`, which loses them a PWA window.
 *   Developers have no way of handling cross-user-agent differences, like if the user-agent includes or excludes a back button in the window for 'standalone' mode
@@ -28,6 +31,12 @@ As more display mode options arise (tabs, window-control-overlay, maybe back but
 
 However, if that is NOT the case and more intense customization is necessary, this proposal should work well with adding a `display modifiers`-style future API. See [Custom display mode names with display-modifiers-style specification](#custom-display-mode-names-with-display-modifiers-style-specification) for an idea here.
 
+# How does this effect the user?
+
+Web developers will struggle to use new display modes, resulting in the following cases:
+ * PWAs will only work for certain UAs that support the exact display mode that is requested by the developer (example - if Spotify wants `minimal-ui`, they will only have a PWA window for browsers that support `minimal-ui`. Otherwise the user agent is forced to fall back to `browser`, which would just open Spotify in a browser tab.
+ * PWAs will appear in unexpected display modes for users that have UAs that don't support the requested display mode. Example: if DropBox wanted to have a PWA with `tabbed` mode, but only wanted that mode, as they are a multiple-document-appplication, they would be forced to supported a `standalone` mode that they don't want, and wouldn't offer any functionality to the user.
+ * PWAs not being created at all, as the developer cannot get the display mode & fallback configuration that they want & can support.
 
 # Goals
 
