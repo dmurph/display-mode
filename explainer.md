@@ -62,9 +62,9 @@ It seems too early to know if this is necessary, and at the very least this prop
 This API seems like it isn't suiting our needs, and is hard to change while continuing to be backwards compatible. Better to create a new surface.
 
 
-# Part 1: `display-override`
+# Part 1: `display_override`
 
-Add a new field, sequence of strings `display-override`, which the user agent considers before the `display` field. These are considered in-order, and the first supported display mode is applied. If none are supported, the user agent falls back to [evaluating](https://w3c.github.io/manifest/#display-modes) the `display` field (as already specified).
+Add a new field, sequence of strings `display_override`, which the user agent considers before the `display` field. These are considered in-order, and the first supported display mode is applied. If none are supported, the user agent falls back to [evaluating](https://w3c.github.io/manifest/#display-modes) the `display` field (as already specified).
 
 Example:
 
@@ -72,7 +72,7 @@ Example:
 ```json
 {
   "display": "standalone",
-  "display-override": ["window-control-overlay", "minimal-ui"],
+  "display_override": ["window-control-overlay", "minimal-ui"],
 }
 ```
 
@@ -83,16 +83,16 @@ In this example, the display mode fallback chain would be spec'd as:
 
 1.  `window-control-overlay`
 1.  `minimal-ui`
-1.  `standalone` (`display-override` is exhausted, [evaluating](https://w3c.github.io/manifest/#display-modes) `display` now)
+1.  `standalone` (`display_override` is exhausted, [evaluating](https://w3c.github.io/manifest/#display-modes) `display` now)
 1.  `minimal-ui`
 1.  `browser`
 
 Requirements:
 
-*   A user agent will not consider `display-override` unless `display` is also present.
+*   A user agent will not consider `display_override` unless `display` is also present.
 *   The new display modes cannot be used with `"display"`.
 
-New modes would only be allowed to be specified in the `"display-override"` field.
+New modes would only be allowed to be specified in the `"display_override"` field.
 
 
 ## Fallback Behavior
@@ -115,7 +115,7 @@ When a user agent supports a mode, that is predictable and fully supported. If i
 
 ## Backwards compatible
 
-A user-agent that doesn't support `display-override` would fall back to the `display` field, which is fine and is predictable.
+A user-agent that doesn't support `display_override` would fall back to the `display` field, which is fine and is predictable.
 
 
 ## Con - Possible large number of modes
@@ -178,7 +178,7 @@ The developer prefers `minimal-ui` but can settle for `standalone`.
 ```json
 {
   "display": "standalone",
-  "display-override": ["minimal-ui"],
+  "display_override": ["minimal-ui"],
 }
 ```
 
@@ -192,7 +192,7 @@ A webapp that only wants a dedicated window if there can be tabs.
 ```json
 {
   "display": "browser",
-  "display-override": [ "window-control-overlay-tabbed", "tabbed"],
+  "display_override": [ "window-control-overlay-tabbed", "tabbed"],
 }
 ```
 
@@ -206,7 +206,7 @@ A webapp wants to display their own browser controls if they are in a window, ei
 ```json
 {
   "display": "browser",
-  "display-override": [ "window-control-overlay", "standalone"],
+  "display_override": [ "window-control-overlay", "standalone"],
 }
 ```
 
@@ -220,7 +220,7 @@ A webapp doesn't want `minimal-ui`.
 ```json
 {
   "display": "browser",
-  "display-override": ["standalone"],
+  "display_override": ["standalone"],
 }
 ```
 
@@ -235,7 +235,7 @@ In one possible future, with each new display mode customization there is only o
 
 **However**, there is a possible future where, as more display modes are added, developers need an increasingly large space of options that cannot be feasibly captured by individual feature strings, compounding too much with all of the requested possibilities.
 
-At its core, `display-override` provides a developer-controlled display mode fallback functionality. This seems necessary no matter what. More customizable APIs could be added and interact symbiotically with this API.
+At its core, `display_override` provides a developer-controlled display mode fallback functionality. This seems necessary no matter what. More customizable APIs could be added and interact symbiotically with this API.
 
 One example is to allow developers to create their own display modes like so:
 
@@ -243,7 +243,7 @@ One example is to allow developers to create their own display modes like so:
 ```json
 {
   "display": "standalone",
-  "display-override": ["back-tabbed-color", "tabbed-color", "tabbed"],
+  "display_override": ["back-tabbed-color", "tabbed-color", "tabbed"],
   "custom-display-modes": {
     "back-tabbed-color": {
       "required": {
@@ -276,7 +276,7 @@ In this example, the `custom-display-modes` specify custom display modes, simila
 *   `required` specifies the display modifiers that **need** to be supported by the browser for this display mode to become active. The configuration is used IFF all requirements are supported.
 *   `optional` specifies the display modifiers that **may** be supported by the browser (and will be applied if they are supported).
 
-Then, these display mode names can be used in the `display-override` list just like any of the built in display modes.
+Then, these display mode names can be used in the `display_override` list just like any of the built in display modes.
 
 
 ## No new entries in `display` mode fallback chain
