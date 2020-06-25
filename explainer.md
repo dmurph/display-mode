@@ -291,6 +291,34 @@ If options were to be added for display modes, this proposal does not block that
 
 # Considered Alternatives
 
+## Allow absence of `display` property
+
+**NOTE:** This might be a better direction here. Please comment on issue #10 if you agree / disagree.
+
+
+As Issue #10 states, we could instead have this property be an alternative to the `display` property instead of an override. This means our end-state is less confusing to developers, as instead of needing to put:
+
+```json
+{
+  "display": "standalone",
+  "display_override": ["minimal-ui"],
+}
+```
+
+they can write:
+
+```json
+{
+  "display_override": ["minimal-ui", "standalone"],
+}
+```
+
+Notes:
+ * The fallback chain would have an inherent `"kBrowser"` value at the end (no need to specify).
+ * The name could change, as it's no longer overriding. Maybe `display_fallback_list`?
+ * The spec could say that this field overrides `display` if present.
+
+The downside of this approach is that it would make new apps potentially not backwards compatible.
 
 ## Using a 'string' instead of a json field for options
 
