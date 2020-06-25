@@ -15,7 +15,7 @@ Please use this [issue tracker](https://github.com/dmurph/display-mode/issues) t
 
 # Introduction
 
-New display modes are being proposed, and the current way of specifying a display mode in the manifest has a static fallback chain, which can:
+New display modes are being proposed, and the current way of specifying a display mode in the manifest has a [static fallback chain](https://w3c.github.io/manifest/#display-modes), which can:
  * Prevent developer from using display modes that may make them not PWAs on unsupporting UAs - A developer cannot, for example, request `minimal-ui` without being forced back into the `browser` display mode (essentially making it a non-PWA) on unsupporting UAs.
  * Forces display modes onto developers that they do not want. - A developer MUST handle all display modes the follow the requested mode. If they want `fullscreen`, and `tabbed` is introduced after `fullscreen` in the display mode list, they must support a `tabbed` display mode, even if they don't want it
 
