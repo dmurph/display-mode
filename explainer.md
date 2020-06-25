@@ -293,10 +293,10 @@ If options were to be added for display modes, this proposal does not block that
 
 ## Allow absence of `display` property
 
-**NOTE:** This might be a better direction here. Please comment on issue #10 if you agree / disagree.
+**NOTE:** This might be a better direction here. Please comment on [Issue #10](https://github.com/dmurph/display-mode/issues/10) if you agree / disagree.
 
 
-As Issue #10 states, we could instead have this property be an alternative to the `display` property instead of an override. This means our end-state is less confusing to developers, as instead of needing to put:
+As [Issue #10](https://github.com/dmurph/display-mode/issues/10) states, we could instead have this property be an alternative to the `display` property instead of an override. This means our end-state is less confusing to developers, as instead of needing to put:
 
 ```json
 {
